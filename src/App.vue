@@ -12,6 +12,9 @@ const variants = ref([
 const cart = ref(0)
 const brand = ref('CPNV')
 const selectedVariant = ref(0)
+const name = ref('')
+const review = ref('')
+const rating = ref(null)
 
 function sale(){
   if (variants.value[selectedVariant.value].onSale) {
@@ -37,6 +40,13 @@ function brandedProduct() {
 function updateVariant(variantId) {
   selectedVariant.value = variantId
 }
+function onSubmit() {
+  let productReview = {
+    name: name.value,
+    review: review.value,
+    rating: rating.value}
+  console.log(productReview)
+}
 </script>
   
 <template>
@@ -47,7 +57,6 @@ function updateVariant(variantId) {
       <div class="product-image">    
         <img v-if="inStock()" v-bind:src="image()" alt="Socks"/>
         <img v-else v-bind:src="image()" alt="Socks" class="out-of-stock-img"/>
-
       </div>
       <div class="product-info">
         <h1>{{ brandedProduct() }}</h1>
@@ -67,6 +76,27 @@ function updateVariant(variantId) {
         <button v-if="inStock()" @click="addToCart()" >Ajouter</button>
         <button v-else class="disabledButton">Ajouter</button>
         <button @click="subtractFromCart()">Enlever du panier</button>
+
+        <form class="review-form" @submit.prevent="onSubmit">
+          <h3>Laissez un commentaire</h3>
+          <label for="name">Nom:</label>
+          <input id="name" v-model="name"/>
+
+          <label for="review">Commentaire:</label>
+          <textarea id="review" v-model="review"></textarea>
+      
+          <label for="rating">Note:</label>
+          <select id="rating" v-model.number="rating">
+            <option>5</option>
+            <option>4</option>
+            <option>3</option>
+            <option>2</option>
+            <option>1</option>
+          </select>
+      
+          <input class="button" type="submit" value="Valider"/>
+        </form>
+        <p>{{ productReview }}</p>
       </div>
     </div>
   </div>
