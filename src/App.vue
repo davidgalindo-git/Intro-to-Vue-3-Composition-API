@@ -5,7 +5,7 @@ import socksBlueImage from './assets/images/socks_blue.jpeg'
 
 const product = ref('Socks')
 const image = ref(socksGreenImage)
-const inStock = true
+const inStock = false
   
 const details = ref(['50% cotton', '30% wool', '20% polyester'])
 
@@ -38,7 +38,9 @@ function changeImage(itemPath) {
   <div class="product-display">
     <div class="product-container">
       <div class="product-image">    
-        <img v-bind:src="image" alt="Socks"/>
+        <img v-if="inStock" v-bind:src="image" alt="Socks"/>
+        <img v-else="inStock" v-bind:src="image" alt="Socks" class="out-of-stock-img"/>
+
       </div>
       <div class="product-info">
         <h1>{{ product }}</h1>
@@ -47,15 +49,17 @@ function changeImage(itemPath) {
         <ul>
           <li v-for="detail in details">{{ detail }}</li>
         </ul>
-        <div
+        <div class="color-circle"
+          @mouseover="changeImage(variant.image)"
           v-for="variant in variants"
           :key="variant.id"
-          @mouseover="changeImage(variant.image)"
+          :style="{ backgroundColor: variant.color }"
+          
         >
-          {{ variant.color }}
         </div>
-        <button @click="addToCart()">Add to Cart</button>
-        <button @click="subtractFromCart()">Subtract from Cart</button>
+        <button v-if="inStock==true" @click="addToCart()" >Ajouter</button>
+        <button v-else class="disabledButton">Ajouter</button>
+        <button @click="subtractFromCart()">Enlever du panier</button>
       </div>
     </div>
   </div>
