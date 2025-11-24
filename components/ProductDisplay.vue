@@ -15,6 +15,13 @@ const name = ref('')
 const review = ref('')
 const rating = ref(null)
 
+const props = defineProps({
+  premium: {
+    type: Boolean,
+    required: true
+  }
+})
+
 function sale(){
   if (variants.value[selectedVariant.value].onSale) {
     return " est en action !"  }
