@@ -2,6 +2,7 @@
 import { ref } from 'vue'
 import socksGreenImage from '../assets/images/socks_green.jpeg'
 import socksBlueImage from '../assets/images/socks_blue.jpeg'
+import ProductDetails from "@/components/ProductDetails.vue";
 
 const product = ref('Socks')
 const details = ref(['50% cotton', '30% wool', '20% polyester'])
@@ -48,7 +49,7 @@ function onSubmit() {
 }
 function shippingCost(){
   if (props.premium){
-    shipping.value = 0
+    shipping.value = 'Free'
   }
   else{
     shipping.value = 5.99
@@ -68,9 +69,7 @@ function shippingCost(){
         <p>{{ sale() }}</p>
         <p v-if="inStock()">In Stock</p>
         <p v-else>Out of Stock</p>
-        <ul>
-          <li v-for="detail in details">{{ detail }}</li>
-        </ul>
+        <ProductDetails :details="details"></ProductDetails>
         <p>{{shippingCost()}}</p>
         <div class="color-circle"
              v-for="(variant, index) in variants"
