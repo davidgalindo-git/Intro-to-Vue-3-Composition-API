@@ -8,7 +8,7 @@ const product = ref('Socks')
 const details = ref(['50% cotton', '30% wool', '20% polyester'])
 const variants = ref([
   { id: 0, color: 'green', image: socksGreenImage, quantity: 10, onSale: true},
-  { id: 1, color: 'blue', image: socksBlueImage, quantity: 0, onSale: false},
+  { id: 1, color: 'blue', image: socksBlueImage, quantity: 20, onSale: false},
 ])
 const brand = ref('CPNV')
 const selectedVariant = ref(0)
@@ -23,6 +23,8 @@ const props = defineProps({
     required: true
   }
 })
+
+const emit = defineEmits(['add-to-cart'],[remove-from-cart])
 
 function sale(){
   if (variants.value[selectedVariant.value].onSale) {
@@ -56,6 +58,12 @@ function shippingCost(){
   }
   return shipping.value
 }
+function addToCart() {
+  emit('add-to-cart', variants.value[selectedVariant.value].id)
+}
+function removeFromCart() {
+  emit('remove-from-cart', variants.value[selectedVariant.value].id)
+}
 </script>
 <template>
   <div class="product-display">
@@ -80,7 +88,7 @@ function shippingCost(){
         </div>
         <button v-if="inStock()" @click="addToCart()" >Ajouter</button>
         <button v-else class="disabledButton">Ajouter</button>
-        <button @click="subtractFromCart()">Enlever du panier</button>
+        <button @click="removeFromCart()">Enlever du panier</button>
 
         <form class="review-form" @submit.prevent="onSubmit">
           <h3>Laissez un commentaire</h3>
