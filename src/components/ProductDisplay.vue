@@ -1,7 +1,7 @@
 <script setup>
 import { ref } from 'vue'
-import socksGreenImage from '../src/assets/images/socks_green.jpeg'
-import socksBlueImage from '../src/assets/images/socks_blue.jpeg'
+import socksGreenImage from '../assets/images/socks_green.jpeg'
+import socksBlueImage from '../assets/images/socks_blue.jpeg'
 
 const product = ref('Socks')
 const details = ref(['50% cotton', '30% wool', '20% polyester'])
@@ -73,10 +73,10 @@ function shippingCost(){
         </ul>
         <p>{{shippingCost()}}</p>
         <div class="color-circle"
-             v-for="variant in variants"
+             v-for="(variant, index) in variants"
              :key="variant.id"
              :style="{ backgroundColor: variant.color }"
-             @mouseover="updateVariant(variant.id)"
+             @mouseover="updateVariant(index)"
         >
         </div>
         <button v-if="inStock()" @click="addToCart()" >Ajouter</button>

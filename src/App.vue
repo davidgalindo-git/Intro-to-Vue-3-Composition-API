@@ -1,6 +1,6 @@
 <script setup>
 import { ref } from 'vue'
-import ProductDisplay from '../components/ProductDisplay.vue'
+import ProductDisplay from './components/ProductDisplay.vue'
 
 const cart = ref(0)
 
