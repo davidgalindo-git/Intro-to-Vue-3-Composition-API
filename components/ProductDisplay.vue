@@ -53,6 +53,7 @@ function shippingCost(){
   else{
     shipping.value = 5.99
   }
+  return shipping.value
 }
 </script>
 <template>
@@ -70,6 +71,7 @@ function shippingCost(){
         <ul>
           <li v-for="detail in details">{{ detail }}</li>
         </ul>
+        <p>{{shippingCost()}}</p>
         <div class="color-circle"
              v-for="variant in variants"
              :key="variant.id"
