@@ -14,6 +14,7 @@ const selectedVariant = ref(0)
 const name = ref('')
 const review = ref('')
 const rating = ref(null)
+const shipping = ref(null)
 
 const props = defineProps({
   premium: {
@@ -44,6 +45,14 @@ function onSubmit() {
     review: review.value,
     rating: rating.value}
   console.log(productReview)
+}
+function shippingCost(){
+  if (props.premium){
+    shipping.value = 0
+  }
+  else{
+    shipping.value = 5.99
+  }
 }
 </script>
 <template>
