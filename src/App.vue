@@ -17,5 +17,5 @@ const removeFromCart = (id) => {
 <template>
   <div class="nav-bar"></div>
   <div class="cart">Cart({{ cart.length }})</div>
-  <ProductDisplay :premium="premium" @add-to-cart="updateCart" @remove-from-cart="removeFromCart"></ProductDisplay>
+  <ProductDisplay :premium="premium" @add-to-cart="updateCart" @remove-from-cart="removeFromCart" />
 </template>
